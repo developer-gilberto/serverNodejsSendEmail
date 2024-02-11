@@ -17,6 +17,9 @@ const limiter = rateLimit({
 // Aplica o rate limiter a todas as rotas
 app.use(limiter);
 
+// Configura o Express para confiar nos cabeçalhos enviados pelos proxies.
+app.set('trust proxy', true);
+
 const user = process.env.USER_MAIL;
 const pass = process.env.PASS;
 const emailFrom = process.env.EMAIL_FROM;
