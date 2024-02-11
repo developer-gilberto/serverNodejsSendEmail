@@ -76,5 +76,5 @@ app.post("/enviar_email", function (req, res) {
 });
 
 app.listen(port, () => {
-    console.info(`Servidor rodando em http://localhost:${port}/`);
+    console.info(`Servidor rodando em https://servernodejssendemail-production.up.railway.app/:${port}/`);
 });
