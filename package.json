@@ -1,0 +1,19 @@
+{
+  "name": "servernodejssendemail",
+  "version": "1.0.0",
+  "description": "Servidor Nodejs para enviar os dados de um formulário para a caixa de entrada do meu email.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.4.2",
+    "express": "^4.18.2",
+    "nodemailer": "^6.9.9"
+  }
+}
