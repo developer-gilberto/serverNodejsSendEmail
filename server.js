@@ -7,6 +7,9 @@ const rateLimit = require('express-rate-limit');
 const app = express();
 const port = process.env.PORT || process.env.PORT_DEFAULT;
 
+// Configura o Express para confiar nos cabeçalhos enviados pelos proxies.
+app.set('trust proxy', ['loopback', 'linklocal', 'uniquelocal']);
+
 // Define o rate limiter
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutos
@@ -17,8 +20,6 @@ const limiter = rateLimit({
 // Aplica o rate limiter a todas as rotas
 app.use(limiter);
 
-// Configura o Express para confiar nos cabeçalhos enviados pelos proxies.
-app.set('trust proxy', true);
 
 const user = process.env.USER_MAIL;
 const pass = process.env.PASS;
