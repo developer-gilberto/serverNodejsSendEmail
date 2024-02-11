@@ -2,9 +2,20 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const nodeMailer = require('nodemailer');
+const rateLimit = require('express-rate-limit');
 
 const app = express();
 const port = process.env.PORT || process.env.PORT_DEFAULT;
+
+// Define o rate limiter
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutos
+    max: 5, // Limite de 5 requisições por IP
+    message: "Você atingiu o limite de requisições ao servidor. Por questões de segurança, você só poderá tentar novamente daqui 15 minutos. Conto com sua compreenção."
+});
+
+// Aplica o rate limiter a todas as rotas
+app.use(limiter);
 
 const user = process.env.USER_MAIL;
 const pass = process.env.PASS;
@@ -45,6 +56,13 @@ app.post("/enviar_email", function (req, res) {
     
     // Envia o e-mail
     transporter.sendMail(mailOptions, (error, info) => {
+
+        if (userName.length > 40 || 
+            textArea.length > 1000 || 
+            userEmail.length > 50) {
+                console.log("Os campos NOME, E-MAIL ou MENSAGEM excederam a quantidade de caracteres permitida. ");
+                return res.status(400).send("ATENÇÂO! O campo 'NOME' deve ter no máximo 40 caracteres e sua mensagem deve conter no máximo 1000 caracteres.");
+        }
 
         if (error) {
             console.error(error);
