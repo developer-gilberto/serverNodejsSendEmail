@@ -69,7 +69,7 @@ app.post("/enviar_email", function (req, res) {
             res.status(500).send(`<h1>Sinto muito ${userName}!</h1>\n❌ Algo deu errado e não foi possível enviar o e-mail 😭`);
         } else {
             console.info("E-MAIL ENVIADO COM SUCESSO =) " + info.response);
-            res.status(200).send(`<h1 style="text-align:center">Obrigado pelo contato <span style="color:#0000ff">${userName}</span>!</h1>\n<p style="text-align:center">Sua mensagem foi enviada com sucesso para <strong>${sendToEmail}</strong> ✅</p>`);
+            res.status(200).send(`<h1 style="text-align:center">Obrigado pelo contato <span style="color:#0000ff">${userName}</span>!</h1>\n<p style="text-align:center">Sua mensagem foi enviada com sucesso para <strong>${sendToEmail}</strong> ✅</p><br>\n<br><a style="text-align:center" href="https://developer-gilberto.github.io/enviando-email-com-nodejs/">⬅️  Voltar para HOME</a>`);
         }
     });
 
