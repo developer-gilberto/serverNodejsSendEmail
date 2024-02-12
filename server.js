@@ -60,14 +60,11 @@ app.post("/enviar_email", function (req, res) {
     
     // Envia o e-mail
     transporter.sendMail(mailOptions, (error, info) => {
-
-        if (userName.length > 40 || 
-            textArea.length > 1000 || 
-            userEmail.length > 50) {
-                console.log("Os campos NOME, E-MAIL ou MENSAGEM excederam a quantidade de caracteres permitida. ");
-                return res.status(400).send("ATENÇÂO! O campo 'NOME' deve ter no máximo 40 caracteres e sua mensagem deve conter no máximo 1000 caracteres.");
+        
+        if (userName.length > 40 || textArea.length > 1000 || userEmail.length > 50) {
+            return res.status(400).send("ATENÇÂO! O campo 'NOME' deve ter no máximo 40 caracteres e sua mensagem deve conter no máximo 1000 caracteres.");
         }
-
+    
         if (error) {
             console.error(error);
             res.status(500).send(`<h1>Sinto muito ${userName}!</h1>\n❌ Algo deu errado e não foi possível enviar o e-mail 😭`);
