@@ -62,15 +62,16 @@ app.post("/enviar_email", function (req, res) {
     transporter.sendMail(mailOptions, (error, info) => {
         
         if (userName.length > 40 || textArea.length > 1000 || userEmail.length > 50) {
-            return res.status(400).send("ATENÇÂO! O campo 'NOME' deve ter no máximo 40 caracteres e sua mensagem deve conter no máximo 1000 caracteres.");
+            throw new Error("ATENÇÂO! O campo 'NOME' deve ter no máximo 40 caracteres e sua mensagem deve conter no máximo 1000 caracteres.");
         }
-    
-        if (error) {
-            console.error(error);
-            res.status(500).send(`<h1>Sinto muito ${userName}!</h1>\n❌ Algo deu errado e não foi possível enviar o e-mail 😭`);
-        } else {
+
+        try {
             console.info("E-MAIL ENVIADO COM SUCESSO =) " + info.response);
             res.status(200).send(`<h1 style="text-align:center">Obrigado pelo contato <span style="color:#0000ff">${userName}</span>!</h1>\n<p style="text-align:center">Sua mensagem foi enviada com sucesso para <strong>${sendToEmail}</strong> ✅</p><br>\n<br><a style="text-align:center" href="https://developer-gilberto.github.io/enviando-email-com-nodejs/">⬅️  Voltar para HOME</a>`);
+        } catch (err) {
+            console.error(err);
+            console.error(error);
+            res.send(err);
         }
     });
 
